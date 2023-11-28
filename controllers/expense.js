@@ -46,11 +46,6 @@ exports.downloadExpense =  async(req,res,next)=>{
 }
 
 
-
-
-
-
-
 exports.getAllUsers = async(req,res,next)=>{
     try {
         console.log(req.user.ispremiumuser);
@@ -109,9 +104,6 @@ exports.getLeaderBoardUser = async(req,res,next)=>{
     
 
 }
-
-
-
 
 exports.getExpenses = async (req,res,next)=>{
    // const {eamount,edescription,category}= req.body;         
