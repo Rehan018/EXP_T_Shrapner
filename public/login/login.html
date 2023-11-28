@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Login Page</title>
+    <link rel="stylesheet" href="./style.css">
+    
+</head>
+    <body>
+        <div class="center">
+            <h1>Log In</h1>
+
+            <form onsubmit="logIn(event)" method="POST">
+
+                <div class="txt_field">
+                    <input type="email" name="emailId"  required/>            
+                    <span></span>
+                    <label> EmailId</label>
+                </div>
+
+                <div class="txt_field">
+                    <input type="password" name="password" required/>
+                    <span></span>
+                    <label> Password</label>
+                      
+                </div>
+                <div class="pass" ><a href="../forgot/forgot.html"> Forgot Password?</a></div>
+                
+                <button class="newlogin" id="submit"> Login </button>
+
+                <div class="login_link">
+                    New member? <a href="../signup/signup.html">Signup</a>
+                  </div>
+                
+            </form>
+
+            <div id="existing"></div>
+        
+            <ul id='listOfUsers'></ul>
+           
+
+
+
+        </div>
+        
+        
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.1.2/axios.min.js" ></script>
+        <!--request the server for the code for network calls-->
+
+        <script >
+    
+              function logIn(event) {
+                event.preventDefault();
+                const email = event.target.emailId.value;
+                const password = event.target.password.value;
+                
+             
+                
+                const obj = {
+                
+                    email,
+                    password
+                }
+                console.log('1255');
+
+                axios.post("http://localhost:5000/user/login", obj)
+
+                .then((response)=>{
+                    console.log(response);
+                    localStorage.setItem('token', response.data.token);
+                    if(response.status === 200)
+                    {
+                         window.location.href = "../expense/expense.html"
+                        // redirect('./expense.html')
+                        console.log('login  complete');
+                    }
+                    else if(response.status === 207)
+                    {
+                        //console.log('response 207');
+                        showIfUserNotExists(response.data.message);
+                        //exist.innerText = '';
+                        //exist.innerText = `<h2>${response.data.newUserDetail}</h2>` 
+
+                    }
+
+                    else{
+                        throw new Error('Error failed to login')
+                    }
+                    
+                    
+                    //showListofRegisteredUser(response.data.newUserDetail)
+                    //console.log(response)
+                })
+                .catch((err)=> {
+                    console.log(err)
+                })
+
+
+
+                
+            }
+
+            function showIfUserNotExists(user){
+               // console.log(user);
+             //   const show = user.newUserDetail;
+                const parentNode = document.getElementById('listOfUsers');
+                const createNewUserHtml = `<li >${user} 
+                                                
+                                            </li>
+                                            `
+              
+                parentNode.innerHTML +=  createNewUserHtml;
+
+              
+               
+            }
+            
+
+       
+        
+ 
+        </script>
+
+
+    </body>
+</html>

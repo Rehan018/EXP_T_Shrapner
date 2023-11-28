@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Signup Page</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+    <body>
+        <div class="center">
+            <h1>Sign Up</h1>
+            <form onsubmit="signUp(event)" method="POST" id="signup-form">
+                <div class="txt_field">                 
+                    <input type="text" name="username"  required/>
+                    <span></span>
+                    <label> Name</label>
+                </div>
+
+                <div class="txt_field">
+                    <input type="email" name="emailId"  required/>
+                    <span></span>
+                    <label> EmailId</label>
+                </div>
+                    
+                <div class="txt_field">
+                    <input type="password" name="password"/>
+                    <span></span>
+                    <label> Password</label>
+                </div>
+               
+                <button id="submit"> signup </button>
+
+                <div class="login_link">
+                    Already a member? <a href="../login/login.html">Exisitng User Login</a>
+
+                </div>
+                
+            </form>
+           
+            
+            <div id="existing"></div>
+            
+            <ul id='listOfUsers'></ul>
+
+
+        </div>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.1.2/axios.min.js" ></script>
+        <!--request the server for the code for network calls-->
+
+        <script >
+    
+              function signUp(event) {
+                event.preventDefault();
+                const username = event.target.username.value;
+                const email = event.target.emailId.value;
+                const password = event.target.password.value;
+                //const exist= document.querySelector('existing');
+                //exist.innerHTML = '';
+             
+                
+                const obj = {
+                    username,
+                    email,
+                    password
+                }
+                console.log('1255');
+
+                axios.post("http://localhost:5000/user/signup", obj)
+                .then((response)=>{
+                    
+                    console.log(response);
+                    if(response.status === 201)
+                    {
+                        window.location.href = "../login/login.html"
+                        console.log('sign up complete');
+                    }
+                    else if(response.status === 207)
+                    {
+                        showExistingUser(response.data.message);
+                        //exist.innerText = '';
+                        //exist.innerText = `<h2>${response.data.newUserDetail}</h2>` 
+
+                    }
+
+                    else{
+                        throw new Error('Error failed to login')
+                    }
+                    
+                    
+                    //showListofRegisteredUser(response.data.newUserDetail)
+                    //console.log(response)
+                })
+                .catch((err)=> {
+                    console.log(err)
+                })
+
+
+
+                
+            }
+
+            function showExistingUser(user){
+               // console.log(user);
+             //   const show = user.newUserDetail;
+                const parentNode = document.getElementById('listOfUsers');
+                const createNewUserHtml = `<li >${user} 
+                                                
+                                            </li>
+                                            `
+              
+                parentNode.innerHTML +=  createNewUserHtml;
+
+               // document.getElementById("username").value = "";
+              // document.getElementById("emailId").value = "";
+              //  document.getElementById("phoneNo").value = "";
+               
+            }
+            
+/*
+            window.addEventListener('DOMContentLoaded', (event) => {
+                console.log('555');
+                
+
+                axios.get("http://localhost:5000/user/signup")
+                .then((response)=>{
+                    console.log(response)
+                    
+/*
+                    for(let i=0;i<response.data.length;i++)
+                    {
+                        showListofRegisteredUser(response.data[i]);
+                    }
+                    */
+
+             //   }).catch((error)=> console.log(error));
+
+                
+            
+          //  })
+
+           //re comment this out
+
+     /*       function showListofRegisteredUser(user){
+                const parentNode = document.getElementById('listOfUsers');
+                const createNewUserHtml = `<li id=${user.id}>${user.name} - ${user.email} - ${user.phoneNo}
+                                                <button onclick="deleteUser('${user.id}')">Delete</button>
+                                            </li>
+                                            `
+              
+                parentNode.innerHTML +=  createNewUserHtml;
+
+               // document.getElementById("username").value = "";
+              // document.getElementById("emailId").value = "";
+              //  document.getElementById("phoneNo").value = "";
+               
+            }*/
+/*
+            function deleteUser(userId) {
+                axios.delete(`http://localhost:4000/user/deleteUser/${userId}`)
+                .then((response)=>{
+                    removeItemFromScreen(userId)
+                }).catch((err)=> {
+                    console.log(err);
+                })
+               
+            }
+            */
+/*
+            function removeItemFromScreen(userId){
+                const parentNode = document.getElementById('listOfUsers');
+                const elem = document.getElementById(userId)
+                parentNode.removeChild(elem);
+            }
+*/
+        
+ 
+        </script>
+
+
+    </body>
+</html>
