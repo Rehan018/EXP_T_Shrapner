@@ -1,19 +1,8 @@
 const Sequelize = require('sequelize');
-
-
 require('dotenv').config()
-
-
-
-const sequelize = new Sequelize( 'Expense_Tracker','root','', {
+const sequelize = new Sequelize( process.env.DB_NAME,process.env.DB_USERNAME,'', {
 
     dialect: 'mysql',
-    host: 'localhost',
+    host: process.env.DB_HOST,
     });
-
-
-
-    //connecting sequelize to db create connection pool
-
-   
 module.exports = sequelize;
