@@ -11,8 +11,8 @@ document.getElementById('rzp-button1').onclick = async function (e) {
      "order_id": response.data.order.id, // For one time payment
      "prefill": {
        "name": "Test User",
-       "email": "test.user@example.com",
-       "contact": "7003442036"
+       "email": "rehanalam5090@gmai.com",
+       "contact": "7281988705"
      },
      "theme": {
       "color": "#3399cc"

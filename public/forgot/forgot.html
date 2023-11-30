@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,6 +8,7 @@
     <title>forgot Password</title>
     <link rel="stylesheet" href="./style.css">
 </head>
+
 <body>
 
     <div class="center">
@@ -15,28 +17,28 @@
         <form onsubmit="forgotPass(event)" method="POST">
 
             <div class="txt_field">
-                <input type="email" name="emailId"  required/>            
+                <input type="email" name="emailId" required />
                 <span></span>
                 <label> EmailId</label>
             </div>
 
             <button class="newlogin" id="submit"> send </button>
 
-            
-            
+
+
         </form>
 
         <div id="existing"></div>
-    
-        <ul id='listOfUsers'></ul>
-       
-    </div>
-    
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.1.2/axios.min.js" ></script>
-    <script>
-        
 
-        function forgotPass(event){
+        <ul id='listOfUsers'></ul>
+
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.1.2/axios.min.js"></script>
+    <script>
+
+
+        function forgotPass(event) {
             event.preventDefault();
             const email = event.target.emailId.value;
             const token = localStorage.getItem('token');
@@ -46,22 +48,22 @@
             console.log('1255');
             //console.log(obj);
 
-            axios.post('http://localhost:5000/pass/forgot',obj, {headers: {"Authorization": token}}).then(response => {
+            axios.post('http://localhost:5000/pass/forgot', obj, { headers: { "Authorization": token } }).then(response => {
 
-                if(response.status === 202){
-                document.body.innerHTML += '<div style="color:red;text-align:center;margin-top:70px;">Mail Successfuly sent <div>'
-                }else {
-                throw new Error('Something went wrong!!!')
+                if (response.status === 202) {
+                    document.body.innerHTML += '<div style="color:red;text-align:center;margin-top:70px;">Mail Successfuly sent <div>'
+                } else {
+                    throw new Error('Something went wrong!!!')
                 }
-                }).catch(err => {
-                    document.body.innerHTML += `<div style="color:red;text-align:center;margin-top:70px;">${err} <div>`;
-        })
+            }).catch(err => {
+                document.body.innerHTML += `<div style="color:red; text-align:center; margin-top:70px;">${err} <div>`;
+            })
 
-            
+
 
         }
 
-        
+
 
 
 
@@ -69,4 +71,5 @@
 
     </script>
 </body>
+
 </html>

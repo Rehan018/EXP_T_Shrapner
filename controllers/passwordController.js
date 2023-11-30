@@ -13,8 +13,6 @@ exports.Forgotpassword = async (req, res, next) => {
   const { email } = req.body;
 
   const user = await User.findOne({ where: { email } });
-
-
   /*Generate a unique identifier (UUID) for the password reset request*/
   const id = uuid.v4();
 

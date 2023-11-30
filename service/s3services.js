@@ -1,8 +1,5 @@
 const AWS = require('aws-sdk')
 
-
-
-
 const uploadToS3 = (data, filename)=>{
 
     const BUCKET_NAME = 'expensetrackingapp777';
